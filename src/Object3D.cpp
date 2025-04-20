@@ -106,30 +106,16 @@ bool Triangle::intersect(const Ray &r, float tmin, Hit &h) const
     // TODO implement
     const Vector3f &rayOrigin = r.getOrigin(); // o
     const Vector3f &dir = r.getDirection(); // d
-    Vector3f normal = Vector3f::cross(_v[1] - _v[0], _v[2] - _v[0]); // N
-    normal = normal.normalized();
+    
+    // 解(1-u-v)*v0 + u*v1 + v*v2 = o + t*d
+    Matrix3f matrix(_v[1] - _v[0], _v[2] - _v[0], -dir);
+    Vector3f ans = matrix.inverse() * (rayOrigin - _v[0]); // [u, v, t]
 
-    if(Vector3f::dot(dir, normal) == 0){ // parallel
-        return false;
-    }
-
-    float t = Vector3f::dot(_v[0] - rayOrigin, normal) / Vector3f::dot(dir, normal);
-    if(t < tmin){
-        return false;
-    }
-    if(t < h.getT()){
-        Vector3f p = rayOrigin + t * dir;
-
-        Vector3f n0 = Vector3f::cross(_v[1] - _v[0], p - _v[0]);
-        Vector3f n1 = Vector3f::cross(_v[2] - _v[1], p - _v[1]);
-        Vector3f n2 = Vector3f::cross(_v[0] - _v[2], p - _v[2]);
-        float a = Vector3f::dot(n0, n1);
-        float b = Vector3f::dot(n1, n2);
-
-        if(a > 0 && b > 0){ // inside triangle
-            h.set(t, this->material, normal);
-            return true;
-        }
+    if(1 - ans[0] - ans[1] > 0 && ans[0] > 0 && ans[1] > 0 && ans[2] >= tmin && ans[2] < h.getT()){
+        Vector3f normal = (1 - ans[0] - ans[1]) * _normals[0] + ans[0] * _normals[1] + ans[1] * _normals[2];
+        normal = normal.normalized();
+        h.set(ans[2], this->material, normal);
+        return true;
     }
     return false;
 }
