@@ -8,25 +8,28 @@ set(CMAKE_DEPENDS_LANGUAGES
 
 # The set of dependency files which are needed:
 set(CMAKE_DEPENDS_DEPENDENCY_FILES
-  "/Users/BIU/Desktop/hw/tuxinxue.nosync/project2/starter2/starter2/src/ArgParser.cpp" "CMakeFiles/a2.dir/src/ArgParser.cpp.o" "gcc" "CMakeFiles/a2.dir/src/ArgParser.cpp.o.d"
-  "/Users/BIU/Desktop/hw/tuxinxue.nosync/project2/starter2/starter2/src/Camera.cpp" "CMakeFiles/a2.dir/src/Camera.cpp.o" "gcc" "CMakeFiles/a2.dir/src/Camera.cpp.o.d"
-  "/Users/BIU/Desktop/hw/tuxinxue.nosync/project2/starter2/starter2/src/CubeMap.cpp" "CMakeFiles/a2.dir/src/CubeMap.cpp.o" "gcc" "CMakeFiles/a2.dir/src/CubeMap.cpp.o.d"
-  "/Users/BIU/Desktop/hw/tuxinxue.nosync/project2/starter2/starter2/src/Image.cpp" "CMakeFiles/a2.dir/src/Image.cpp.o" "gcc" "CMakeFiles/a2.dir/src/Image.cpp.o.d"
-  "/Users/BIU/Desktop/hw/tuxinxue.nosync/project2/starter2/starter2/src/Light.cpp" "CMakeFiles/a2.dir/src/Light.cpp.o" "gcc" "CMakeFiles/a2.dir/src/Light.cpp.o.d"
-  "/Users/BIU/Desktop/hw/tuxinxue.nosync/project2/starter2/starter2/src/Material.cpp" "CMakeFiles/a2.dir/src/Material.cpp.o" "gcc" "CMakeFiles/a2.dir/src/Material.cpp.o.d"
-  "/Users/BIU/Desktop/hw/tuxinxue.nosync/project2/starter2/starter2/src/Mesh.cpp" "CMakeFiles/a2.dir/src/Mesh.cpp.o" "gcc" "CMakeFiles/a2.dir/src/Mesh.cpp.o.d"
-  "/Users/BIU/Desktop/hw/tuxinxue.nosync/project2/starter2/starter2/src/Object3D.cpp" "CMakeFiles/a2.dir/src/Object3D.cpp.o" "gcc" "CMakeFiles/a2.dir/src/Object3D.cpp.o.d"
-  "/Users/BIU/Desktop/hw/tuxinxue.nosync/project2/starter2/starter2/src/Octree.cpp" "CMakeFiles/a2.dir/src/Octree.cpp.o" "gcc" "CMakeFiles/a2.dir/src/Octree.cpp.o.d"
-  "/Users/BIU/Desktop/hw/tuxinxue.nosync/project2/starter2/starter2/src/Renderer.cpp" "CMakeFiles/a2.dir/src/Renderer.cpp.o" "gcc" "CMakeFiles/a2.dir/src/Renderer.cpp.o.d"
-  "/Users/BIU/Desktop/hw/tuxinxue.nosync/project2/starter2/starter2/src/SceneParser.cpp" "CMakeFiles/a2.dir/src/SceneParser.cpp.o" "gcc" "CMakeFiles/a2.dir/src/SceneParser.cpp.o.d"
-  "/Users/BIU/Desktop/hw/tuxinxue.nosync/project2/starter2/starter2/src/VecUtils.cpp" "CMakeFiles/a2.dir/src/VecUtils.cpp.o" "gcc" "CMakeFiles/a2.dir/src/VecUtils.cpp.o.d"
-  "/Users/BIU/Desktop/hw/tuxinxue.nosync/project2/starter2/starter2/src/main.cpp" "CMakeFiles/a2.dir/src/main.cpp.o" "gcc" "CMakeFiles/a2.dir/src/main.cpp.o.d"
-  "/Users/BIU/Desktop/hw/tuxinxue.nosync/project2/starter2/starter2/src/stb.cpp" "CMakeFiles/a2.dir/src/stb.cpp.o" "gcc" "CMakeFiles/a2.dir/src/stb.cpp.o.d"
+  "/Users/sakura/FDU/4_2/CG/Project2/computer_graphics/src/ArgParser.cpp" "CMakeFiles/a2.dir/src/ArgParser.cpp.o" "gcc" "CMakeFiles/a2.dir/src/ArgParser.cpp.o.d"
+  "/Users/sakura/FDU/4_2/CG/Project2/computer_graphics/src/Camera.cpp" "CMakeFiles/a2.dir/src/Camera.cpp.o" "gcc" "CMakeFiles/a2.dir/src/Camera.cpp.o.d"
+  "/Users/sakura/FDU/4_2/CG/Project2/computer_graphics/src/CubeMap.cpp" "CMakeFiles/a2.dir/src/CubeMap.cpp.o" "gcc" "CMakeFiles/a2.dir/src/CubeMap.cpp.o.d"
+  "/Users/sakura/FDU/4_2/CG/Project2/computer_graphics/src/Image.cpp" "CMakeFiles/a2.dir/src/Image.cpp.o" "gcc" "CMakeFiles/a2.dir/src/Image.cpp.o.d"
+  "/Users/sakura/FDU/4_2/CG/Project2/computer_graphics/src/Light.cpp" "CMakeFiles/a2.dir/src/Light.cpp.o" "gcc" "CMakeFiles/a2.dir/src/Light.cpp.o.d"
+  "/Users/sakura/FDU/4_2/CG/Project2/computer_graphics/src/Material.cpp" "CMakeFiles/a2.dir/src/Material.cpp.o" "gcc" "CMakeFiles/a2.dir/src/Material.cpp.o.d"
+  "/Users/sakura/FDU/4_2/CG/Project2/computer_graphics/src/Mesh.cpp" "CMakeFiles/a2.dir/src/Mesh.cpp.o" "gcc" "CMakeFiles/a2.dir/src/Mesh.cpp.o.d"
+  "/Users/sakura/FDU/4_2/CG/Project2/computer_graphics/src/Object3D.cpp" "CMakeFiles/a2.dir/src/Object3D.cpp.o" "gcc" "CMakeFiles/a2.dir/src/Object3D.cpp.o.d"
+  "/Users/sakura/FDU/4_2/CG/Project2/computer_graphics/src/Octree.cpp" "CMakeFiles/a2.dir/src/Octree.cpp.o" "gcc" "CMakeFiles/a2.dir/src/Octree.cpp.o.d"
+  "/Users/sakura/FDU/4_2/CG/Project2/computer_graphics/src/Renderer.cpp" "CMakeFiles/a2.dir/src/Renderer.cpp.o" "gcc" "CMakeFiles/a2.dir/src/Renderer.cpp.o.d"
+  "/Users/sakura/FDU/4_2/CG/Project2/computer_graphics/src/SceneParser.cpp" "CMakeFiles/a2.dir/src/SceneParser.cpp.o" "gcc" "CMakeFiles/a2.dir/src/SceneParser.cpp.o.d"
+  "/Users/sakura/FDU/4_2/CG/Project2/computer_graphics/src/VecUtils.cpp" "CMakeFiles/a2.dir/src/VecUtils.cpp.o" "gcc" "CMakeFiles/a2.dir/src/VecUtils.cpp.o.d"
+  "/Users/sakura/FDU/4_2/CG/Project2/computer_graphics/src/main.cpp" "CMakeFiles/a2.dir/src/main.cpp.o" "gcc" "CMakeFiles/a2.dir/src/main.cpp.o.d"
+  "/Users/sakura/FDU/4_2/CG/Project2/computer_graphics/src/stb.cpp" "CMakeFiles/a2.dir/src/stb.cpp.o" "gcc" "CMakeFiles/a2.dir/src/stb.cpp.o.d"
   )
 
-# Targets to which this target links.
-set(CMAKE_TARGET_LINKED_INFO_FILES
-  "/Users/BIU/Desktop/hw/tuxinxue.nosync/project2/starter2/starter2/build/vecmath/CMakeFiles/vecmath.dir/DependInfo.cmake"
+# Targets to which this target links which contain Fortran sources.
+set(CMAKE_Fortran_TARGET_LINKED_INFO_FILES
+  )
+
+# Targets to which this target links which contain Fortran sources.
+set(CMAKE_Fortran_TARGET_FORWARD_LINKED_INFO_FILES
   )
 
 # Fortran module output directory.
