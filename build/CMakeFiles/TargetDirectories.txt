@@ -1,6 +1,0 @@
-/Users/sakura/FDU/4_2/CG/Project2/computer_graphics/build/CMakeFiles/a2.dir
-/Users/sakura/FDU/4_2/CG/Project2/computer_graphics/build/CMakeFiles/edit_cache.dir
-/Users/sakura/FDU/4_2/CG/Project2/computer_graphics/build/CMakeFiles/rebuild_cache.dir
-/Users/sakura/FDU/4_2/CG/Project2/computer_graphics/build/vecmath/CMakeFiles/vecmath.dir
-/Users/sakura/FDU/4_2/CG/Project2/computer_graphics/build/vecmath/CMakeFiles/edit_cache.dir
-/Users/sakura/FDU/4_2/CG/Project2/computer_graphics/build/vecmath/CMakeFiles/rebuild_cache.dir
