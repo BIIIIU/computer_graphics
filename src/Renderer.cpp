@@ -92,4 +92,3 @@ Renderer::traceRay(const Ray &r,
         return Vector3f(0, 0, 0);
     };
 }
-

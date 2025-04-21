@@ -80,25 +80,66 @@ bool Group::intersect(const Ray &r, float tmin, Hit &h) const
 
 Plane::Plane(const Vector3f &normal, float d, Material *m) : Object3D(m) {
     // TODO implement Plane constructor
+    _normal = normal;
+    _dist = d;
 }
 bool Plane::intersect(const Ray &r, float tmin, Hit &h) const
 {
     // TODO implement
+    const Vector3f &rayOrigin = r.getOrigin(); // o
+    const Vector3f &dir = r.getDirection(); // d
+
+    Vector3f origin = _normal * _dist - rayOrigin; // p' - o
+
+    float t = Vector3f::dot(origin, _normal) / Vector3f::dot(dir, _normal);
+    if(t < tmin){
+        return false;
+    }
+    if(t < h.getT()){
+        h.set(t, this->material, _normal);
+        return true;
+    }
     return false;
 }
 bool Triangle::intersect(const Ray &r, float tmin, Hit &h) const 
 {
     // TODO implement
+    const Vector3f &rayOrigin = r.getOrigin(); // o
+    const Vector3f &dir = r.getDirection(); // d
+    
+    // 解(1-u-v)*v0 + u*v1 + v*v2 = o + t*d
+    Matrix3f matrix(_v[1] - _v[0], _v[2] - _v[0], -dir);
+    Vector3f ans = matrix.inverse() * (rayOrigin - _v[0]); // [u, v, t]
+
+    if(1 - ans[0] - ans[1] > 0 && ans[0] > 0 && ans[1] > 0 && ans[2] >= tmin && ans[2] < h.getT()){
+        Vector3f normal = (1 - ans[0] - ans[1]) * _normals[0] + ans[0] * _normals[1] + ans[1] * _normals[2];
+        normal = normal.normalized();
+        h.set(ans[2], this->material, normal);
+        return true;
+    }
     return false;
 }
 
 
-Transform::Transform(const Matrix4f &m,
-    Object3D *obj) : _object(obj) {
+Transform::Transform(const Matrix4f &m, Object3D *obj) : _object(obj) {
     // TODO implement Transform constructor
+    _matrix = m;
 }
 bool Transform::intersect(const Ray &r, float tmin, Hit &h) const
 {
     // TODO implement
+    const Vector3f &rayOrigin = r.getOrigin(); // o
+    const Vector3f &dir = r.getDirection(); // d
+
+    Matrix4f m_1 = _matrix.inverse();
+    Vector3f TransDir((m_1 * Vector4f(dir, 0)).xyz()); // 将射线的方向向量用逆矩阵变换到局部空间，不受平移影响，只受旋转/缩放影响
+    Ray TransRay((m_1 * Vector4f(rayOrigin, 1)).xyz(), TransDir); // 构造在局部空间里的射线，射线的起点用逆矩阵变换，受平移影响
+
+    if(_object->intersect(TransRay, tmin * TransDir.abs(), h)){
+        Vector3f normal = (m_1.transposed() * Vector4f(h.getNormal(), 0)).xyz(); // 把局部空间中求到的法线变回世界坐标，变换法线时需要使用逆转置矩阵
+        normal = normal.normalized();
+        h.set(h.getT(), h.getMaterial(), normal);
+        return true;
+    }
     return false;
 }

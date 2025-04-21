@@ -25,4 +25,3 @@
         tolight = tolight.normalized();
         intensity = _color / (_falloff * distToLight * distToLight);
     }
-

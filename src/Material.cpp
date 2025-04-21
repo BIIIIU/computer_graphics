@@ -19,4 +19,5 @@ Vector3f Material::shade(const Ray &ray,//相机光线
     Vector3f specular = _specularColor * lightIntensity * tmp; //镜面反射
     
     return diffuse + specular; //返回最终颜色
+
 }
