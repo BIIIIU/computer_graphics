@@ -85,6 +85,18 @@ Renderer::traceRay(const Ray &r,
             float distToLight;
             //r.pointAtParameter(h.getT()) 计算光线与物体相交的点
             _scene.getLight(i)->getIllumination(r.pointAtParameter(h.getT()), tolight, intensity, distToLight);
+
+            // 阴影投射
+            if(_args.shadows){
+                Vector3f shadowRayOrigin = r.pointAtParameter(h.getT()) + tolight * 0.01; // 阴影光线原点稍微远离点本身
+                Ray shadowRay(shadowRayOrigin, tolight); // 阴影光线向光源发出
+                Hit shadowHit = Hit();
+                if (_scene.getGroup()->intersect(shadowRay, tmin, shadowHit)){ // 判断光线是否与物体相交
+                    if (shadowHit.getT() < distToLight){ // 是自己的阴影
+                        continue;
+                    }
+                }
+            }
             color += h.getMaterial()->shade(r, h, tolight, intensity);
         }
         return color;
