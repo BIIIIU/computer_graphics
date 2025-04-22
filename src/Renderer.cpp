@@ -77,18 +77,30 @@ Renderer::traceRay(const Ray &r,
     // You will implement phong shading, recursive ray tracing, and shadow rays.
 
     // TODO: IMPLEMENT 
+    Vector3f Indirect_color = Vector3f(0.0f, 0.0f, 0.0f);
     if (_scene.getGroup()->intersect(r, tmin, h)) {//判断光线是否与物体相交
         Vector3f color = _scene.getAmbientLight() * h.getMaterial()->getDiffuseColor();//环境光照明
         
         for (int i = 0; i < _scene.getNumLights(); i++) {//遍历所有光源
             Vector3f tolight, intensity;
             float distToLight;
-            //r.pointAtParameter(h.getT()) 计算光线与物体相交的点
+            //r.pointAtParameter(h.getT()) 是计算光线与物体相交的点
             _scene.getLight(i)->getIllumination(r.pointAtParameter(h.getT()), tolight, intensity, distToLight);
             color += h.getMaterial()->shade(r, h, tolight, intensity);
         }
+        if (bounces > 0){
+            Hit indirect_h;
+            Vector3f N = h.getNormal().normalized(); 
+            Vector3f V = -r.getDirection().normalized(); 
+            Vector3f R = (2 * Vector3f::dot(V, N) * N - V).normalized(); 
+            
+            Ray Ray_R = Ray(r.pointAtParameter(h.getT()), R.normalized());
+            Vector3f indirect_color = traceRay(Ray_R, tmin, bounces - 1, indirect_h);
+            color += indirect_color * h.getMaterial()->getSpecularColor();
+            // Indirect_color += indirect_color;
+        }
         return color;
     } else {
-        return Vector3f(0, 0, 0);
+        return _scene.getBackgroundColor(r.getDirection());//背景色
     };
 }
