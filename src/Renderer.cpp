@@ -94,7 +94,7 @@ Renderer::traceRay(const Ray &r,
             Vector3f V = -r.getDirection().normalized(); 
             Vector3f R = (2 * Vector3f::dot(V, N) * N - V).normalized(); 
             
-            Ray Ray_R = Ray(r.pointAtParameter(h.getT()), R.normalized());
+            Ray Ray_R = Ray(r.pointAtParameter(h.getT()) + 0.01 * R, R.normalized());
             Vector3f indirect_color = traceRay(Ray_R, tmin, bounces - 1, indirect_h);
             color += indirect_color * h.getMaterial()->getSpecularColor();
             // Indirect_color += indirect_color;
