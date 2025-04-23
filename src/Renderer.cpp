@@ -78,6 +78,7 @@ Renderer::traceRay(const Ray &r,
 
     // TODO: IMPLEMENT 
     Vector3f Indirect_color = Vector3f(0.0f, 0.0f, 0.0f);
+    
     if (_scene.getGroup()->intersect(r, tmin, h)) {//判断光线是否与物体相交
         Vector3f color = _scene.getAmbientLight() * h.getMaterial()->getDiffuseColor();//环境光照明
         
@@ -104,15 +105,16 @@ Renderer::traceRay(const Ray &r,
             Hit indirect_h;
             Vector3f N = h.getNormal().normalized(); 
             Vector3f V = -r.getDirection().normalized(); 
-            Vector3f R = (2 * Vector3f::dot(V, N) * N - V).normalized(); 
+            Vector3f R = (2 * Vector3f::dot(V, N) * N - V).normalized(); //计算反射光线
             
+            // + 0.01 * R 是避免由于浮点数精度问题，导致光线与物体相交
             Ray Ray_R = Ray(r.pointAtParameter(h.getT()) + 0.01 * R, R.normalized());
             Vector3f indirect_color = traceRay(Ray_R, tmin, bounces - 1, indirect_h);
             color += indirect_color * h.getMaterial()->getSpecularColor();
-            // Indirect_color += indirect_color;
         }
         return color;
     } else {
+        h.t = std::numeric_limits<float>::min(); //背景的t要设置为最小值，虽然没有焦点，但是背景也不是无穷远
         return _scene.getBackgroundColor(r.getDirection());//背景色
     };
 }
