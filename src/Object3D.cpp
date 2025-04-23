@@ -132,8 +132,9 @@ bool Transform::intersect(const Ray &r, float tmin, Hit &h) const
     const Vector3f &dir = r.getDirection(); // d
 
     Matrix4f m_1 = _matrix.inverse();
+    Vector3f TransOrigin = (m_1 * Vector4f(rayOrigin, 1)).xyz(); // 射线的起点用逆矩阵变换，受平移影响
     Vector3f TransDir((m_1 * Vector4f(dir, 0)).xyz()); // 将射线的方向向量用逆矩阵变换到局部空间，不受平移影响，只受旋转/缩放影响
-    Ray TransRay((m_1 * Vector4f(rayOrigin, 1)).xyz(), TransDir); // 构造在局部空间里的射线，射线的起点用逆矩阵变换，受平移影响
+    Ray TransRay(TransOrigin, TransDir); // 构造在局部空间里的射线
 
     if(_object->intersect(TransRay, tmin * TransDir.abs(), h)){
         Vector3f normal = (m_1.transposed() * Vector4f(h.getNormal(), 0)).xyz(); // 把局部空间中求到的法线变回世界坐标，变换法线时需要使用逆转置矩阵
