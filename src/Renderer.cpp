@@ -114,7 +114,7 @@ Renderer::traceRay(const Ray &r,
         }
         return color;
     } else {
-        h.t = std::numeric_limits<float>::min(); //背景的t要设置为最小值，虽然没有焦点，但是背景也不是无穷远
+        h.t = std::numeric_limits<float>::min(); //背景的t要设置为最小值，虽然没有交点，但是背景也不是无穷远
         return _scene.getBackgroundColor(r.getDirection());//背景色
     };
 }
