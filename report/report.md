@@ -68,7 +68,107 @@ Vector3f Material::shade(const Ray &ray,
 }
 ```
 
+
+
 ## 任务2: 光线投射
+
+光线投射需要将光线追踪器变得灵活和可扩展。一个通用的Object3D类将作为所有三维物体的父类，需要实现的是它们专门化的子类，并实现相交（intersect）函数。实现相交函数需要通过求出相交距离t来更新Hit存储的法向量值。
+
+### 2.1 实现平面（Plane）类
+
+已知一个平面P，求出相交距离$$t=\frac{(p'-o)·N}{d·N}$$，其中`p'`是平面上的点， `o`是射线起点，`d`是射线方向，`N`是平面法向量。
+
+如果发现点使得`t >= tmin`和`t < h.getT()`，则需要更新Hit，并且只要是相交就要返回true。
+
+代码实现如下：
+
+```cpp
+bool Plane::intersect(const Ray &r, float tmin, Hit &h) const
+{
+    const Vector3f &rayOrigin = r.getOrigin(); // o
+    const Vector3f &dir = r.getDirection(); // d
+
+    Vector3f origin = _normal * _dist - rayOrigin; // p' - o
+
+    float t = Vector3f::dot(origin, _normal) / Vector3f::dot(dir, _normal);
+    if(t < tmin){
+        return false;
+    }
+    if(t < h.getT()){
+        h.set(t, this->material, _normal);
+        return true;
+    }
+    return false;
+}
+```
+
+### 2.2 实现三角形（Triangle）类
+
+构造函数输入3个顶点，每个顶点包括法线和材质。我们需要做的是：
+
+- 判断射线是否与三角形所在平面相交。
+- 确定射线与平面相交后，求得其交点p，并判断该点是否在三角形内。
+
+若点p满足上面两个条件，那么p一定满足方程$$p=(1-u-v)*v0+u*v1+v*v2$$（p在三角形上的重心坐标公式）和方程$$p=o+t*d$$（射线公式），联立两个方程用矩阵的方法就可以求解`[u, v, t]`了。
+
+要保证p在三角形内部，则p的重心坐标公式三个系数都在0-1之间即可。同样的，如果发现点使得`t >= tmin`和`t < h.getT()`，则需要更新Hit，并且只要是相交就要返回true。
+
+代码实现如下：
+
+```cpp
+bool Triangle::intersect(const Ray &r, float tmin, Hit &h) const 
+{
+    const Vector3f &rayOrigin = r.getOrigin(); // o
+    const Vector3f &dir = r.getDirection(); // d
+    
+    // 解(1-u-v)*v0 + u*v1 + v*v2 = o + t*d
+    Matrix3f matrix(_v[1] - _v[0], _v[2] - _v[0], -dir);
+    Vector3f ans = matrix.inverse() * (rayOrigin - _v[0]); // [u, v, t]
+
+    if(1 - ans[0] - ans[1] > 0 && ans[0] > 0 && ans[1] > 0 && ans[2] >= tmin && ans[2] < h.getT()){
+        Vector3f normal = (1 - ans[0] - ans[1]) * _normals[0] + ans[0] * _normals[1] + ans[1] * _normals[2];
+        normal = normal.normalized();
+        h.set(ans[2], this->material, normal);
+        return true;
+    }
+    return false;
+}
+```
+
+### 2.3 实现变换（Transform）类
+
+变换类存储一个指向子对象三维节点的指针。它还存储了一个4x4的变换矩阵`_matrix`，这个矩阵将子对象从局部对象坐标移动到世界坐标。但是对于复杂的子对象，例如具有许多顶点的网格，每当我们想要跟踪一条射线时，我们不能将整个对象移动到世界坐标。
+
+将光线从世界坐标移动到局部对象坐标要计算小得多，所以我们需要先将射线从世界空间变换到局部空间，在局部空间中进行与原始几何体的相交计算，最后将相交信息（特别是法线）变换回世界空间。
+
+- 从世界坐标移动到局部对象坐标是从局部对象坐标移动到世界坐标的逆过程，所以变换矩阵是`_matrix.inverse()`。
+
+- 射线起点作为点变换，使用齐次坐标 `(rayOrigin, 1)`，受平移影响；射线方向作为向量变换，使用齐次坐标 `(dir, 0)`，不受平移影响。
+
+- 在局部空间中构造射线并判断是否相交，最后将相交信息变换回世界空间。
+
+代码实现如下：
+
+```cpp
+bool Transform::intersect(const Ray &r, float tmin, Hit &h) const
+{
+    const Vector3f &rayOrigin = r.getOrigin(); // o
+    const Vector3f &dir = r.getDirection(); // d
+
+    Matrix4f m_1 = _matrix.inverse();
+    Vector3f TransOrigin = (m_1 * Vector4f(rayOrigin, 1)).xyz();
+    Vector3f TransDir((m_1 * Vector4f(dir, 0)).xyz());
+    Ray TransRay(TransOrigin, TransDir);
+
+    if(_object->intersect(TransRay, tmin * TransDir.abs(), h)){
+        Vector3f normal = (m_1.transposed() * Vector4f(h.getNormal(), 0)).xyz();
+        normal = normal.normalized();
+        h.set(h.getT(), h.getMaterial(), normal);
+        return true;
+    }
+    return false;
+}
+```
 
 
 
