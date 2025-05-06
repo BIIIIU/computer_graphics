@@ -237,44 +237,44 @@ Vector3f Renderer::traceRay(const Ray &r, float tmin, int bounces, Hit &h) const
 
 ## 生成图形截图
 
-![a01](../out/a01.png)
+![a01](../assets/a01.png)
 
-![a01d](../out/a01d.png)
+![a01d](../assets/a01d.png)
 
-![a01n](../out/a01n.png)
+![a01n](../assets/a01n.png)
 
-![a02](../out/a02.png)
+![a02](../assets/a02.png)
 
-![a02d](../out/a02d.png)
+![a02d](../assets/a02d.png)
 
-![a02n](../out/a02n.png)
+![a02n](../assets/a02n.png)
 
-![a03](../out/a03.png)
+![a03](../assets/a03.png)
 
-![a03d](../out/a03d.png)
+![a03d](../assets/a03d.png)
 
-![a03n](../out/a03n.png)
+![a03n](../assets/a03n.png)
 
-![a04](../out/a04.png)
+![a04](../assets/a04.png)
 
-![a04d](../out/a04d.png)
+![a04d](../assets/a04d.png)
 
-![a04d](../out/a04n.png)
+![a04d](../assets/a04n.png)
 
-![a05](../out/a05.png)
+![a05](../assets/a05.png)
 
-![a05d](../out/a05d.png)
+![a05d](../assets/a05d.png)
 
-![a05n](../out/a05n.png)
+![a05n](../assets/a05n.png)
 
-![a06](../out/a06.png)
+![a06](../assets/a06.png)
 
-![a06d](../out/a06d.png)
+![a06d](../assets/a06d.png)
 
-![a06n](../out/a06n.png)
+![a06n](../assets/a06n.png)
 
-![a07](../out/a07.png)
+![a07](../assets/a07.png)
 
-![a07d](../out/a07d.png)
+![a07d](../assets/a07d.png)
 
-![a07n](../out/a07n.png)
+![a07n](../assets/a07n.png)
